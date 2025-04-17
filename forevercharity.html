@@ -177,33 +177,29 @@
 
         <section id="daily-contribution-projection" class="bg-green-100 py-12 rounded-lg mb-12">
             <div class="container mx-auto px-4">
-                <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Daily Contribution Projection</h2>
+                <h2 class="text-2xl md:text-3xl font-semibold text-green-700 text-center mb-8">Daily Contribution Projection</h2>
                 <p class="text-gray-700 text-lg text-center mb-6">
                     See how your contributions can grow over time and generate increasing daily returns for our charitable projects.  This projection assumes a 5% annual return on investment.
                 </p>
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label for="perpetual-daily-donation" class="block text-gray-700 text-sm font-bold mb-2">Desired Perpetual Daily Donation ($):</label>
-                            <input type="number" id="perpetual-daily-donation" value="1.00" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <label for="daily-contribution" class="block text-gray-700 text-sm font-bold mb-2">Daily Contribution ($):</label>
+                            <input type="number" id="daily-contribution" value="1.66" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                         <div>
-                            <label for="years" class="block text-gray-700 text-sm font-bold mb-2">Number of Years (Minimum 5):</label>
-                            <input type="number" id="years" value="5" min="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        </div>
-                        <div>
-                            <label for="monthly-contribution" class="block text-gray-700 text-sm font-bold mb-2">Monthly Contribution ($):</label>
-                            <span id="monthly-contribution" class="block bg-gray-200 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">Loading...</span>
+                            <label for="years" class="block text-gray-700 text-sm font-bold mb-2">Number of Years:</label>
+                            <input type="number" id="years" value="20" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                         </div>
                     </div>
                     <div class="mt-6">
-                        <button id="calculate-investment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Calculate</button>
+                        <button id="calculate-investment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Calculate Investment Growth</button>
                     </div>
                     <div class="mt-8">
                         <h3 class="text-xl font-semibold text-green-600 mb-4">Projected Investment Value: <span id="investment-value" class="text-blue-700">Loading...</span></h3>
                         <p class="text-gray-700 text-lg">Estimated Annual Return (5%): <span id="annual-return" class="text-green-700">Loading...</span></p>
-                        <p class="text-gray-700 text-lg">Perpetual Daily Donation Value: <span id="perpetual-daily-donation-display" class="text-purple-700 text-xl font-bold">Loading...</span></p>
-                        <p class="text-gray-700 text-lg mt-4 text-xl font-semibold text-red-600">Donate This Today For Your Forever Daily Donation Value of: <span id="present-value" class="text-red-700 text-2xl font-bold">Loading...</span></p>
+                        <p class="text-gray-700 text-lg">Perpetual Daily Donation Value: <span id="perpetual-daily-donation" class="text-purple-700 text-xl font-bold">Loading...</span></p>
+                        <p class="text-gray-700 text-lg mt-4 text-xl font-semibold text-red-600">Donate This Now For Your Forever Daily Donation Value of: <span id="present-value" class="text-red-700 text-2xl font-bold">Loading...</span></p>
                         <p class="text-gray-700 text-lg">This is how much your investment will yield, which will be used to support our charity.</p>
                     </div>
                 </div>
@@ -251,91 +247,62 @@
     </footer>
 
     <script>
-        const hamburgerBtn = document.getElementById("hamburger-btn");
-        const mobileMenu = document.getElementById("mobile-menu");
-        const closeMenuBtn = document.getElementById("close-menu-btn");
-        const mobileMenuLinks = mobileMenu.querySelectorAll("a");
-        const navLinks = document.querySelectorAll('.nav-links a');
-        const sections = document.querySelectorAll('section');
+    // ... keep all existing JavaScript code above the calculation section the same ...
 
-        function toggleMobileMenu() {
-            mobileMenu.classList.toggle("hidden");
-            if (!mobileMenu.classList.contains('hidden')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'unset';
-            }
+    const dailyContributionInput = document.getElementById('perpetual-daily-donation');
+    const yearsInput = document.getElementById('years');
+    const monthlyContributionDisplay = document.getElementById('monthly-contribution');
+    const calculateButton = document.getElementById('calculate-investment');
+    const investmentValueDisplay = document.getElementById('investment-value');
+    const annualReturnDisplay = document.getElementById('annual-return');
+    const perpetualDailyDonationDisplay = document.getElementById('perpetual-daily-donation-display');
+    const presentValueDisplay = document.getElementById('present-value');
+
+    function calculateInvestmentGrowth() {
+        const perpetualDailyDonation = parseFloat(dailyContributionInput.value);
+        const years = parseInt(yearsInput.value);
+        const annualReturnRate = 0.05; // 5% cap rate
+        const days = years * 365;
+
+        const annualReturn = perpetualDailyDonation * 365;
+        const futureValue = annualReturn / annualReturnRate;
+
+        let monthlyContribution = 0;
+        if (years > 0) {
+            const monthlyRate = annualReturnRate / 12;
+            monthlyContribution = futureValue * (monthlyRate) / ((Math.pow(1 + monthlyRate, years * 12) - 1);
         }
 
-        hamburgerBtn.addEventListener("click", toggleMobileMenu);
-        closeMenuBtn.addEventListener("click", toggleMobileMenu);
-        mobileMenuLinks.forEach(link => {
-            link.addEventListener("click", toggleMobileMenu);
+        investmentValueDisplay.textContent = futureValue.toLocaleString('en-US', { 
+            style: 'currency', 
+            currency: 'USD' 
         });
-
-        document.addEventListener('click', (event) => {
-            if (!mobileMenu.classList.contains('hidden') && !mobileMenu.contains(event.target) && event.target !== hamburgerBtn) {
-                toggleMobileMenu();
-            }
+        annualReturnDisplay.textContent = annualReturn.toLocaleString('en-US', { 
+            style: 'currency', 
+            currency: 'USD' 
         });
-
-        function updateActiveNavLink() {
-            let currentSectionId = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (window.scrollY >= sectionTop - 100 && window.scrollY < sectionTop + sectionHeight - 100) {
-                    currentSectionId = section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === currentSectionId) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', updateActiveNavLink);
-
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        perpetualDailyDonationDisplay.textContent = perpetualDailyDonation.toLocaleString('en-US', { 
+            style: 'currency', 
+            currency: 'USD' 
         });
+        presentValueDisplay.textContent = futureValue.toLocaleString('en-US', { 
+            style: 'currency', 
+            currency: 'USD' 
+        });
+        monthlyContributionDisplay.textContent = monthlyContribution.toLocaleString('en-US', { 
+            style: 'currency', 
+            currency: 'USD' 
+        });
+    }
 
-        const dailyContributionInput = document.getElementById('perpetual-daily-donation');
-        const yearsInput = document.getElementById('years');
-        const monthlyContributionDisplay = document.getElementById('monthly-contribution');
-        const calculateButton = document.getElementById('calculate-investment');
-        const investmentValueDisplay = document.getElementById('investment-value');
-        const annualReturnDisplay = document.getElementById('annual-return');
-        const perpetualDailyDonationDisplay = document.getElementById('perpetual-daily-donation-display');
-        const presentValueDisplay = document.getElementById('present-value');
+    // Run calculation on page load
+    calculateInvestmentGrowth();
 
-        function calculateInvestmentGrowth() {
-            const perpetualDailyDonation = parseFloat(dailyContributionInput.value);
-            const years = parseInt(yearsInput.value);
-            const annualReturnRate = 0.05; // 5% cap rate
-            const days = years * 365;
+    // Add event listeners
+    calculateButton.addEventListener('click', calculateInvestmentGrowth);
+    dailyContributionInput.addEventListener('input', calculateInvestmentGrowth);
+    yearsInput.addEventListener('input', calculateInvestmentGrowth);
+</script>
 
-            const annualReturn = perpetualDailyDonation * 365;
-            const futureValue = annualReturn / annualReturnRate;
-
-            let monthlyContribution = 0;
-            if (years > 0) {
-                const monthlyRate = annualReturnRate / 12;
-                monthlyContribution = futureValue * (monthlyRate) / ((Math.pow(1 + monthlyRate, years * 12) - 1));
-            }
-
-
-            investmentValueDisplay.textContent = futureValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            annualReturnDisplay.textContent = annualReturn.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            perpetualDailyDonationDisplay.textContent = perpetualDailyDonation.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            presentValueDisplay.textContent = futureValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-            monthlyContributionDisplay.textContent = monthlyContribution.toLocaleString('en-US', { style: 'curre
+</body>
+</html>
