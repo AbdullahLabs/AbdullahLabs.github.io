@@ -198,7 +198,7 @@
                     <div class="mt-8">
                         <h3 class="text-xl font-semibold text-green-600 mb-4">Projected Investment Value: <span id="investment-value" class="text-blue-700">Loading...</span></h3>
                         <p class="text-gray-700 text-lg">Estimated Annual Return (5%): <span id="annual-return" class="text-green-700">Loading...</span></p>
-                        <p class="text-gray-700 text-lg">Perpetual Daily Donation Value: <span id="perpetual-daily-donation" class="text-purple-700 text-xl font-bold">Loading...</span></p>
+                        <p class="text-gray-700 text-lg">Perpetual Daily Donation Value: <span id="perpetual-daily-donation-display" class="text-purple-700 text-xl font-bold">Loading...</span></p>
                         <p class="text-gray-700 text-lg mt-4 text-xl font-semibold text-red-600">Donate This Now For Your Forever Daily Donation Value of: <span id="present-value" class="text-red-700 text-2xl font-bold">Loading...</span></p>
                         <p class="text-gray-700 text-lg">This is how much your investment will yield, which will be used to support our charity.</p>
                     </div>
@@ -247,31 +247,32 @@
     </footer>
 
     <script>
-    // ... keep all existing JavaScript code above the calculation section the same ...
+    // Check if the script is running
+    console.log("JavaScript is running!");
 
-    const dailyContributionInput = document.getElementById('perpetual-daily-donation');
+    const dailyContributionInput = document.getElementById('daily-contribution');
     const yearsInput = document.getElementById('years');
-    const monthlyContributionDisplay = document.getElementById('monthly-contribution');
     const calculateButton = document.getElementById('calculate-investment');
     const investmentValueDisplay = document.getElementById('investment-value');
     const annualReturnDisplay = document.getElementById('annual-return');
-    const perpetualDailyDonationDisplay = document.getElementById('perpetual-daily-donation-display');
+    const perpetualDailyDonationDisplay = document.getElementById('perpetual-daily-donation-display');  // Correct ID
     const presentValueDisplay = document.getElementById('present-value');
 
     function calculateInvestmentGrowth() {
-        const perpetualDailyDonation = parseFloat(dailyContributionInput.value);
+        console.log("calculateInvestmentGrowth function called"); // Check if function is called
+
+        const dailyContribution = parseFloat(dailyContributionInput.value);
         const years = parseInt(yearsInput.value);
         const annualReturnRate = 0.05; // 5% cap rate
         const days = years * 365;
 
-        const annualReturn = perpetualDailyDonation * 365;
-        const futureValue = annualReturn / annualReturnRate;
-
-        let monthlyContribution = 0;
-        if (years > 0) {
-            const monthlyRate = annualReturnRate / 12;
-            monthlyContribution = futureValue * (monthlyRate) / ((Math.pow(1 + monthlyRate, years * 12) - 1);
+        let futureValue = 0;
+        for (let i = 0; i < days; i++) {
+            futureValue = futureValue * (1 + annualReturnRate / 365) + dailyContribution;
         }
+
+        const annualReturn = futureValue * annualReturnRate;
+        const perpetualDailyDonation = annualReturn / 365;
 
         investmentValueDisplay.textContent = futureValue.toLocaleString('en-US', { 
             style: 'currency', 
@@ -281,15 +282,11 @@
             style: 'currency', 
             currency: 'USD' 
         });
-        perpetualDailyDonationDisplay.textContent = perpetualDailyDonation.toLocaleString('en-US', { 
+        perpetualDailyDonationDisplay.textContent = perpetualDailyDonation.toLocaleString('en-US', {  // Correct ID
             style: 'currency', 
             currency: 'USD' 
         });
         presentValueDisplay.textContent = futureValue.toLocaleString('en-US', { 
-            style: 'currency', 
-            currency: 'USD' 
-        });
-        monthlyContributionDisplay.textContent = monthlyContribution.toLocaleString('en-US', { 
             style: 'currency', 
             currency: 'USD' 
         });
@@ -302,7 +299,6 @@
     calculateButton.addEventListener('click', calculateInvestmentGrowth);
     dailyContributionInput.addEventListener('input', calculateInvestmentGrowth);
     yearsInput.addEventListener('input', calculateInvestmentGrowth);
-</script>
-
+    </script>
 </body>
 </html>
