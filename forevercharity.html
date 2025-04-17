@@ -13,6 +13,10 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        .active {
+            font-weight: 600;
+            color: #f59e0b;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -24,12 +28,12 @@
             </a>
             <nav class="hidden md:block">
                 <ul class="flex space-x-6">
-                    <li><a href="#mission" class="hover:text-yellow-300 transition duration-300">Our Mission</a></li>
-                    <li><a href="#how-it-works" class="hover:text-yellow-300 transition duration-300">How It Works</a></li>
-                    <li><a href="#impact-stories" class="hover:text-yellow-300 transition duration-300">Impact Stories</a></li>
-                    <li><a href="#ways-to-give" class="hover:text-yellow-300 transition duration-300">Ways to Give</a></li>
-                    <li><a href="#transparency" class="hover:text-yellow-300 transition duration-300">Transparency</a></li>
-                    <li><a href="#about-us" class="hover:text-yellow-300 transition duration-300">About Us</a></li>
+                    <li><a href="#mission" class="nav-links hover:text-yellow-300 transition duration-300">Our Mission</a></li>
+                    <li><a href="#how-it-works" class="nav-links hover:text-yellow-300 transition duration-300">How It Works</a></li>
+                    <li><a href="#impact-stories" class="nav-links hover:text-yellow-300 transition duration-300">Impact Stories</a></li>
+                    <li><a href="#ways-to-give" class="nav-links hover:text-yellow-300 transition duration-300">Ways to Give</a></li>
+                    <li><a href="#transparency" class="nav-links hover:text-yellow-300 transition duration-300">Transparency</a></li>
+                    <li><a href="#about-us" class="nav-links hover:text-yellow-300 transition duration-300">About Us</a></li>
                 </ul>
             </nav>
             <button id="hamburger-btn" class="md:hidden text-white focus:outline-none" aria-label="Toggle Navigation">
@@ -38,7 +42,7 @@
         </div>
     </header>
 
-    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-50">
+    <div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-90 z-50 overflow-y-auto">
         <div class="bg-gray-800 w-80 h-full absolute right-0 p-6">
             <div class="flex justify-end mb-4">
                 <button id="close-menu-btn" class="text-white focus:outline-none" aria-label="Close Menu">
@@ -119,14 +123,14 @@
                     <p class="text-gray-700 text-lg mb-4">
                         Meet Fatima, a young girl who received access to education thanks to the ongoing support from our education fund, made possible by the continuous returns from donors like you. Her life, and the lives of her future children, have been forever changed.
                     </p>
-                    <img src="https://placehold.co/600x400/EEE/31343C" alt="Education Impact" class="rounded-md">
+                    <img src="https://placehold.co/600x400/EEE/31343C" alt="Education Impact" class="rounded-md w-full">
                 </div>
                 <div class="bg-white rounded-lg shadow-md p-6">
                     <h3 class="text-xl font-semibold text-green-600 mb-4">Clean Water Initiative</h3>
                     <p class="text-gray-700 text-lg mb-4">
                         Thanks to the sustainable funding model, we've been able to provide clean water access to the remote village of Al-Baraka. This has drastically reduced waterborne diseases and improved the overall health and well-being of the community.
                     </p>
-                     <img src="https://placehold.co/600x400/EEE/31343C" alt="Clean Water Impact" class="rounded-md">
+                     <img src="https://placehold.co/600x400/EEE/31343C" alt="Clean Water Impact" class="rounded-md w-full">
                 </div>
             </div>
         </section>
@@ -154,6 +158,53 @@
                             <li>$50/month: Becomes a pillar of our perpetual support.</li>
                         </ul>
                         <button class="bg-yellow-500 hover:bg-yellow-600 text-green-700 font-semibold py-3 px-6 rounded-full transition duration-300 text-lg">Set Up Recurring Gift</button>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <h4 class="text-xl font-semibold text-green-600 mb-4">Example of Enduring Impact</h4>
+                    <p class="text-gray-700 text-lg mb-4">
+                        Your donation, no matter the size, contributes to a fund that generates perpetual support.  For example, a one-time donation of $3,650, when invested at a hypothetical 10% return, could generate $1 every day, forever.  That $1 could provide a meal for someone in need, every single day.
+                    </p>
+                    <p class="text-gray-700 text-lg mb-4">
+                        Even a smaller recurring donation, like $10/month, will grow over time and contribute to this perpetual fund, bringing us closer to our goal of providing daily sustenance for those who need it.  Imagine the impact of increasing that to $20, $50, or more per month.
+                    </p>
+                    <p class="text-gray-700 text-lg font-medium">
+                        Your consistent support will help us build the principal faster, allowing the returns to make a difference sooner.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="daily-contribution-projection" class="bg-green-100 py-12 rounded-lg mb-12">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Daily Contribution Projection</h2>
+                <p class="text-gray-700 text-lg text-center mb-6">
+                    See how your contributions can grow over time and generate increasing daily returns for our charitable projects.  This projection assumes a 5% annual return on investment.
+                </p>
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="perpetual-daily-donation" class="block text-gray-700 text-sm font-bold mb-2">Desired Perpetual Daily Donation ($):</label>
+                            <input type="number" id="perpetual-daily-donation" value="1.00" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div>
+                            <label for="years" class="block text-gray-700 text-sm font-bold mb-2">Number of Years (Minimum 5):</label>
+                            <input type="number" id="years" value="5" min="5" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        </div>
+                        <div>
+                            <label for="monthly-contribution" class="block text-gray-700 text-sm font-bold mb-2">Monthly Contribution ($):</label>
+                            <span id="monthly-contribution" class="block bg-gray-200 border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button id="calculate-investment" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Calculate</button>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-green-600 mb-4">Projected Investment Value: <span id="investment-value" class="text-blue-700">Loading...</span></h3>
+                        <p class="text-gray-700 text-lg">Estimated Annual Return (5%): <span id="annual-return" class="text-green-700">Loading...</span></p>
+                        <p class="text-gray-700 text-lg">Perpetual Daily Donation Value: <span id="perpetual-daily-donation-display" class="text-purple-700 text-xl font-bold">Loading...</span></p>
+                        <p class="text-gray-700 text-lg mt-4 text-xl font-semibold text-red-600">Donate This Today For Your Forever Daily Donation Value of: <span id="present-value" class="text-red-700 text-2xl font-bold">Loading...</span></p>
+                        <p class="text-gray-700 text-lg">This is how much your investment will yield, which will be used to support our charity.</p>
                     </div>
                 </div>
             </div>
@@ -209,6 +260,11 @@
 
         function toggleMobileMenu() {
             mobileMenu.classList.toggle("hidden");
+            if (!mobileMenu.classList.contains('hidden')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'unset';
+            }
         }
 
         hamburgerBtn.addEventListener("click", toggleMobileMenu);
@@ -223,7 +279,7 @@
             }
         });
 
-       function updateActiveNavLink() {
+        function updateActiveNavLink() {
             let currentSectionId = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
@@ -252,6 +308,34 @@
                 });
             });
         });
-    </script>
-</body>
-</html>
+
+        const dailyContributionInput = document.getElementById('perpetual-daily-donation');
+        const yearsInput = document.getElementById('years');
+        const monthlyContributionDisplay = document.getElementById('monthly-contribution');
+        const calculateButton = document.getElementById('calculate-investment');
+        const investmentValueDisplay = document.getElementById('investment-value');
+        const annualReturnDisplay = document.getElementById('annual-return');
+        const perpetualDailyDonationDisplay = document.getElementById('perpetual-daily-donation-display');
+        const presentValueDisplay = document.getElementById('present-value');
+
+        function calculateInvestmentGrowth() {
+            const perpetualDailyDonation = parseFloat(dailyContributionInput.value);
+            const years = parseInt(yearsInput.value);
+            const annualReturnRate = 0.05; // 5% cap rate
+            const days = years * 365;
+
+            const annualReturn = perpetualDailyDonation * 365;
+            const futureValue = annualReturn / annualReturnRate;
+
+            let monthlyContribution = 0;
+            if (years > 0) {
+                const monthlyRate = annualReturnRate / 12;
+                monthlyContribution = futureValue * (monthlyRate) / ((Math.pow(1 + monthlyRate, years * 12) - 1));
+            }
+
+
+            investmentValueDisplay.textContent = futureValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            annualReturnDisplay.textContent = annualReturn.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            perpetualDailyDonationDisplay.textContent = perpetualDailyDonation.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            presentValueDisplay.textContent = futureValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            monthlyContributionDisplay.textContent = monthlyContribution.toLocaleString('en-US', { style: 'curre
